@@ -38,7 +38,7 @@ Deno.test("parseTraceParent: invalid parent id", () => {
 Deno.test("parseTraceParent: extra fields in v0", () => {
   assertThrows(() =>
     parseTraceParent(
-      "00-000102030405060708090a0b0c0d0e0f-0001020304050607-01-1234"
+      "00-000102030405060708090a0b0c0d0e0f-0001020304050607-01-1234",
     )
   );
 });

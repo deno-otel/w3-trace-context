@@ -1,6 +1,5 @@
 /**
  * Given a hexstring, returns a big-endian representation of that number
- *
  */
 export const uint8ArrayFromHexString = (hexstring: string) => {
   if (hexstring.length % 2 !== 0) {

@@ -25,7 +25,7 @@ Deno.test("uint8ArrayFromHexString", async (t) => {
     assertArrayMatch(uint8ArrayFromHexString("1234"), new Uint8Array([18, 52]));
     assertArrayMatch(
       uint8ArrayFromHexString("ffff"),
-      new Uint8Array([255, 255])
+      new Uint8Array([255, 255]),
     );
   });
   await t.step("handles odd numbered character string", () => {

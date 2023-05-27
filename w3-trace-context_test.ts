@@ -22,7 +22,7 @@ Deno.test("W3 Example 1", () => {
   assertEquals(context.version, 0);
   assertEquals(
     bufferToHexstring(context.traceId),
-    "4bf92f3577b34da6a3ce929d0e0e4736"
+    "4bf92f3577b34da6a3ce929d0e0e4736",
   );
   assertEquals(bufferToHexstring(context.parentId), "00f067aa0ba902b7");
   assertEquals(context.sampled, true);
@@ -38,7 +38,7 @@ Deno.test("W3 Example 2", () => {
   assertEquals(context.version, 0);
   assertEquals(
     bufferToHexstring(context.traceId),
-    "4bf92f3577b34da6a3ce929d0e0e4736"
+    "4bf92f3577b34da6a3ce929d0e0e4736",
   );
   assertEquals(bufferToHexstring(context.parentId), "00f067aa0ba902b7");
   assertEquals(context.sampled, false);
@@ -49,7 +49,7 @@ Deno.test("Unknown Version", () => {
   const headers = new Headers();
   headers.set(
     "traceparent",
-    "01-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-00"
+    "01-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-00",
   );
 
   const context = W3TraceContext.fromHeaders(headers);
@@ -57,7 +57,7 @@ Deno.test("Unknown Version", () => {
   assertEquals(context.version, 1);
   assertEquals(
     bufferToHexstring(context.traceId),
-    "4bf92f3577b34da6a3ce929d0e0e4736"
+    "4bf92f3577b34da6a3ce929d0e0e4736",
   );
   assertEquals(bufferToHexstring(context.parentId), "00f067aa0ba902b7");
   assertEquals(context.sampled, false);
@@ -73,7 +73,7 @@ Deno.test("Invalid Trace Parent (corrupted)", () => {
   assertEquals(context.version, 0);
   assertEquals(
     bufferToHexstring(context.traceId),
-    "00000000000000000000000000000000"
+    "00000000000000000000000000000000",
   );
   assertEquals(bufferToHexstring(context.parentId), "0000000000000000");
   assertEquals(context.sampled, false);
@@ -84,7 +84,7 @@ Deno.test("Invalid Trace Parent (all 0s)", () => {
   const headers = new Headers();
   headers.set(
     "traceparent",
-    "00-00000000000000000000000000000000-0000000000000000-00"
+    "00-00000000000000000000000000000000-0000000000000000-00",
   );
 
   const context = W3TraceContext.fromHeaders(headers);
@@ -92,7 +92,7 @@ Deno.test("Invalid Trace Parent (all 0s)", () => {
   assertEquals(context.version, 0);
   assertEquals(
     bufferToHexstring(context.traceId),
-    "00000000000000000000000000000000"
+    "00000000000000000000000000000000",
   );
   assertEquals(bufferToHexstring(context.parentId), "0000000000000000");
   assertEquals(context.sampled, false);
@@ -103,7 +103,7 @@ Deno.test("Extra fields (v0)", () => {
   const headers = new Headers();
   headers.set(
     "traceparent",
-    "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-00-01234-5678"
+    "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-00-01234-5678",
   );
 
   const context = W3TraceContext.fromHeaders(headers);
@@ -111,7 +111,7 @@ Deno.test("Extra fields (v0)", () => {
   assertEquals(context.version, 0);
   assertEquals(
     bufferToHexstring(context.traceId),
-    "00000000000000000000000000000000"
+    "00000000000000000000000000000000",
   );
   assertEquals(bufferToHexstring(context.parentId), "0000000000000000");
   assertEquals(context.sampled, false);
@@ -122,7 +122,7 @@ Deno.test("Extra fields (v1)", () => {
   const headers = new Headers();
   headers.set(
     "traceparent",
-    "01-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-00-01234-5678"
+    "01-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-00-01234-5678",
   );
 
   const context = W3TraceContext.fromHeaders(headers);
@@ -130,7 +130,7 @@ Deno.test("Extra fields (v1)", () => {
   assertEquals(context.version, 1);
   assertEquals(
     bufferToHexstring(context.traceId),
-    "4bf92f3577b34da6a3ce929d0e0e4736"
+    "4bf92f3577b34da6a3ce929d0e0e4736",
   );
   assertEquals(bufferToHexstring(context.parentId), "00f067aa0ba902b7");
   assertEquals(context.sampled, false);
@@ -150,7 +150,7 @@ Deno.test("No Trace Parent", () => {
   assertEquals(context.version, 0);
   assertEquals(
     bufferToHexstring(context.traceId),
-    "00000000000000000000000000000000"
+    "00000000000000000000000000000000",
   );
   assertEquals(bufferToHexstring(context.parentId), "0000000000000000");
   assertEquals(context.sampled, false);
@@ -200,7 +200,7 @@ Deno.test("Handles tracestate headers when missing", () => {
 
   assertFalse(
     newHeaders.has("tracestate"),
-    "tracestate header should be absent"
+    "tracestate header should be absent",
   );
 });
 
@@ -249,7 +249,7 @@ Deno.test("W3TraceContext.fromScratch: traceState", () => {
       generator: new SimpleIdGenerator(),
       sampled: true,
     },
-    [{ key: "foo", value: "2" }] as w3TraceState.TraceState
+    [{ key: "foo", value: "2" }] as w3TraceState.TraceState,
   );
   assertEquals(context.version, 0);
   assertEquals(context.sampled, true);
@@ -270,7 +270,7 @@ Deno.test("W3TraceContext: traceState interactions", () => {
       generator: new SimpleIdGenerator(),
       sampled: true,
     },
-    [{ key: "foo", value: "2" }] as w3TraceState.TraceState
+    [{ key: "foo", value: "2" }] as w3TraceState.TraceState,
   );
   assertEquals(context.getTraceStateValue("foo"), "2");
 

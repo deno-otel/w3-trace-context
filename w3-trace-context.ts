@@ -1,7 +1,7 @@
 import {
-  TraceParentData,
   isValidId,
   parseTraceParent,
+  TraceParentData,
 } from "./parse-trace-parent.ts";
 import { w3TraceState } from "./deps.ts";
 import { InvalidError } from "./exceptions/invalid-error.ts";
@@ -21,8 +21,8 @@ interface FromScratchParentOptions {
  * This class represents the W3C Trace Context as defined at https://www.w3.org/TR/trace-context/
  */
 export class W3TraceContext {
-  private traceParentString: string = "";
-  private traceStateString: string = "";
+  private traceParentString = "";
+  private traceStateString = "";
   private traceParentData: TraceParentData | null = null;
   private traceStateData: w3TraceState.TraceState | null = null;
 

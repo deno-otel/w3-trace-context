@@ -9,6 +9,12 @@
     "https://deno.land/std@0.188.0/bytes/copy.ts": "939d89e302a9761dcf1d9c937c7711174ed74c59eef40a1e4569a05c9de88219",
     "https://deno.land/std@0.188.0/io/buffer.ts": "17f4410eaaa60a8a85733e8891349a619eadfbbe42e2f319283ce2b8f29723ab",
     "https://deno.land/std@0.188.0/types.d.ts": "dbaeb2c4d7c526db9828fc8df89d8aecf53b9ced72e0c4568f97ddd8cda616a4",
-    "https://deno.land/x/w3_trace_state@v1.0.0/trace_state.ts": "153647a62aba88f291901f44357c9cf9ad35d53e7acad6b6a7f4642244661aac"
+    "https://deno.land/x/w3_trace_id_generator@v1.0.0/generate-id.ts": "20994f578a16259c4023fea365b9ae9f8eab35b2c62064d8ca8628fe0ee5c329",
+    "https://deno.land/x/w3_trace_id_generator@v1.0.0/id-generator.ts": "bd5225491b2a07ab5c7db47bdba6f76362e4e50a74aa8bacca14e5831429d858",
+    "https://deno.land/x/w3_trace_id_generator@v1.0.0/mod.ts": "c67f2d140426df4fa99973a85d6fe7c6d989ca395984716983d354a4f8359dfc",
+    "https://deno.land/x/w3_trace_id_generator@v1.0.0/simple-id-generator.ts": "e9d105e15317582c44067ac48f14783081984d2fb2015195995bd1d9f4061def",
+    "https://deno.land/x/w3_trace_state@v1.0.0/trace_state.ts": "153647a62aba88f291901f44357c9cf9ad35d53e7acad6b6a7f4642244661aac",
+    "https://deno.land/x/w3_trace_state@v1.0.4/mod.ts": "f062fecf7debc53edf7976c5a3d3b0fd329f14ba03021b27ac739872aec76cf3",
+    "https://deno.land/x/w3_trace_state@v1.0.4/trace_state.ts": "bef1a3e61e9b60715c13ef12f36e56d2b56d145e0d5185e4684f17a7de597420"
   }
 }

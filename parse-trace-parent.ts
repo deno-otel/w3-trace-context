@@ -10,6 +10,9 @@ export interface TraceParentData {
   extraFields: string[];
 }
 
+export const isValidId = (traceId: Uint8Array): boolean =>
+  traceId.some((byte) => byte !== 0);
+
 export const parseTraceParent = (asString: string): TraceParentData => {
   const version = parseInt(asString.slice(0, 2), 16);
 
@@ -25,30 +28,31 @@ export const parseTraceParent = (asString: string): TraceParentData => {
     extraFields: [] as string[],
   };
   const [, traceId, parentId, traceFlags, ...extraFields] = asString.split("-");
-  if (traceId.length !== 32) {
+  if (traceId?.length !== 32) {
     throw new UnparseableError(
       "Trace ID found in traceparent is the wrong length"
     );
   }
-  if (parentId.length !== 16) {
+  if (parentId?.length !== 16) {
     throw new UnparseableError(
       "Parent ID found in traceparent is the wrong length"
     );
   }
-  if (traceFlags.length !== 2) {
+  if (traceFlags?.length !== 2) {
     throw new UnparseableError(
       "TraceFlags found in traceparent is the wrong length"
     );
   }
 
+  result.version = version;
   result.traceId = uint8ArrayFromHexString(traceId);
   result.parentId = uint8ArrayFromHexString(parentId);
   result.sampled = (parseInt(traceFlags, 16) & 0x01) === 0x01;
 
-  if (result.traceId.every((byte) => byte === 0)) {
+  if (!isValidId(result.traceId)) {
     throw new InvalidError("Invalid Trace ID found in traceparent");
   }
-  if (result.parentId.every((byte) => byte === 0)) {
+  if (!isValidId(result.parentId)) {
     throw new InvalidError("Invalid Parent ID found in traceparent");
   }
 

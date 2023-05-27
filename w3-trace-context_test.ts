@@ -5,7 +5,7 @@ import {
 import { W3TraceContext } from "./w3-trace-context.ts";
 import { bufferToHexstring } from "./buffer-to-hexstring.ts";
 import { assert } from "https://deno.land/std@0.188.0/_util/asserts.ts";
-import { SimpleIdGenerator } from "https://deno.land/x/w3_trace_id_generator/mod.ts";
+import { SimpleIdGenerator } from "https://deno.land/x/w3_trace_id_generator@v1.0.0/mod.ts";
 import { isValidId } from "./parse-trace-parent.ts";
 import { w3TraceState } from "./deps.ts";
 

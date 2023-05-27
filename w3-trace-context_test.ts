@@ -4,10 +4,10 @@ import {
 } from "https://deno.land/std@0.184.0/testing/asserts.ts";
 import { W3TraceContext } from "./w3-trace-context.ts";
 import { bufferToHexstring } from "./buffer-to-hexstring.ts";
-import {
-  DenoStdInternalError,
-  assert,
-} from "https://deno.land/std@0.188.0/_util/asserts.ts";
+import { assert } from "https://deno.land/std@0.188.0/_util/asserts.ts";
+import { SimpleIdGenerator } from "https://deno.land/x/w3_trace_id_generator/mod.ts";
+import { isValidId } from "./parse-trace-parent.ts";
+import { w3TraceState } from "./deps.ts";
 
 // From https://www.w3.org/TR/2021/REC-trace-context-1-20211123/#examples-of-http-traceparent-headers
 const EXAMPLE_1 = "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01";
@@ -216,4 +216,70 @@ Deno.test("Handles tracestate headers when updated", () => {
 
   assert(newHeaders.has("tracestate"));
   assertEquals(newHeaders.get("tracestate"), "baz=3,foo=1");
+});
+
+Deno.test("W3TraceContext.fromScratch: basic", () => {
+  const context = W3TraceContext.fromScratch({
+    generator: new SimpleIdGenerator(),
+  });
+  assertEquals(context.version, 0);
+  assertFalse(context.sampled);
+  assert(isValidId(context.traceId));
+  assert(isValidId(context.parentId));
+  assertEquals(context.extraFields, []);
+  assertEquals(context.traceState, []);
+});
+
+Deno.test("W3TraceContext.fromScratch: sampled", () => {
+  const context = W3TraceContext.fromScratch({
+    generator: new SimpleIdGenerator(),
+    sampled: true,
+  });
+  assertEquals(context.version, 0);
+  assertEquals(context.sampled, true);
+  assert(isValidId(context.traceId));
+  assert(isValidId(context.parentId));
+  assertEquals(context.extraFields, []);
+  assertEquals(context.traceState, []);
+});
+
+Deno.test("W3TraceContext.fromScratch: traceState", () => {
+  const context = W3TraceContext.fromScratch(
+    {
+      generator: new SimpleIdGenerator(),
+      sampled: true,
+    },
+    [{ key: "foo", value: "2" }] as w3TraceState.TraceState
+  );
+  assertEquals(context.version, 0);
+  assertEquals(context.sampled, true);
+  assert(isValidId(context.traceId));
+  assert(isValidId(context.parentId));
+  assertEquals(context.extraFields, []);
+  assertEquals(context.traceState, [
+    {
+      key: "foo",
+      value: "2",
+    },
+  ]);
+});
+
+Deno.test("W3TraceContext: traceState interactions", () => {
+  const context = W3TraceContext.fromScratch(
+    {
+      generator: new SimpleIdGenerator(),
+      sampled: true,
+    },
+    [{ key: "foo", value: "2" }] as w3TraceState.TraceState
+  );
+  assertEquals(context.getTraceStateValue("foo"), "2");
+
+  context.addTraceStateValue("bar", "3");
+  assertEquals(context.getTraceStateValue("bar"), "3");
+
+  context.deleteTraceStateValue("foo");
+  assertEquals(context.getTraceStateValue("foo"), undefined);
+
+  context.updateTraceStateValue("bar", "4");
+  assertEquals(context.getTraceStateValue("bar"), "4");
 });

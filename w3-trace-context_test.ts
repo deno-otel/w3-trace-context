@@ -325,7 +325,7 @@ describe("W3TraceContext", () => {
       assertThrows(() =>
         W3TraceContext.fromTraceData({
           version: 0,
-          traceId: INVALID_PARENT_ID,
+          traceId: INVALID_TRACE_ID,
           parentId: EXAMPLE_PARENT_ID,
           sampled: true,
           extraFields: [],

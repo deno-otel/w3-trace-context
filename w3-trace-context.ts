@@ -62,7 +62,7 @@ export class W3TraceContext implements TraceContext {
    */
   static fromScratch(
     { generator, sampled = false }: FromScratchParentOptions,
-    state?: w3TraceState.TraceState
+    state?: w3TraceState.TraceState,
   ) {
     const context = new W3TraceContext();
     const traceId = generator.generateTraceIdBytes();
@@ -87,7 +87,7 @@ export class W3TraceContext implements TraceContext {
    */
   static fromTraceData(
     traceParent: TraceParentData,
-    traceState: TraceState = w3TraceState.getEmptyTraceState()
+    traceState: TraceState = w3TraceState.getEmptyTraceState(),
   ) {
     const context = new W3TraceContext();
     if (!isValidId(traceParent.traceId)) {
@@ -143,7 +143,7 @@ export class W3TraceContext implements TraceContext {
         this.traceStateData = w3TraceState.getEmptyTraceState();
       }
       this.traceStateData = w3TraceState.getTraceStateFromHeader(
-        this.traceStateString
+        this.traceStateString,
       );
     }
     return this.traceStateData;
@@ -156,12 +156,12 @@ export class W3TraceContext implements TraceContext {
       } catch (e) {
         if (e instanceof UnparseableError || e instanceof InvalidError) {
           console.warn(
-            `W3TraceContext had invalid traceparent: '${this.traceParentString}'`
+            `W3TraceContext had invalid traceparent: '${this.traceParentString}'`,
           );
         } else {
           console.warn(
             "W3TraceContext hit unexpected error processing traceparent",
-            e
+            e,
           );
         }
         this.clearTraceParent();
@@ -250,7 +250,7 @@ export class W3TraceContext implements TraceContext {
     this.traceStateData = w3TraceState.addTraceStateValue(
       this.getTraceState(),
       key,
-      value
+      value,
     );
   }
 
@@ -262,7 +262,7 @@ export class W3TraceContext implements TraceContext {
     this.traceStateData = w3TraceState.updateTraceStateValue(
       this.getTraceState(),
       key,
-      value
+      value,
     );
   }
 
@@ -273,7 +273,7 @@ export class W3TraceContext implements TraceContext {
   deleteTraceStateValue(key: string): void {
     this.traceStateData = w3TraceState.deleteTraceStateValue(
       this.getTraceState(),
-      key
+      key,
     );
   }
 }

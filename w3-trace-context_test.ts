@@ -20,7 +20,22 @@ const EXAMPLE_1 = "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01";
 const EXAMPLE_2 = "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-00";
 
 const EXAMPLE_TRACE_ID = new Uint8Array([
-  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
 ]);
 const EXAMPLE_PARENT_ID = new Uint8Array([0, 1, 2, 3, 4, 5, 6, 7]);
 const INVALID_TRACE_ID = new Uint8Array(16);
@@ -36,7 +51,7 @@ describe("W3TraceContext", () => {
     assertEquals(context.version, 0);
     assertEquals(
       bufferToHexstring(context.traceId),
-      "4bf92f3577b34da6a3ce929d0e0e4736"
+      "4bf92f3577b34da6a3ce929d0e0e4736",
     );
     assertEquals(bufferToHexstring(context.parentId), "00f067aa0ba902b7");
     assertEquals(context.sampled, true);
@@ -52,7 +67,7 @@ describe("W3TraceContext", () => {
     assertEquals(context.version, 0);
     assertEquals(
       bufferToHexstring(context.traceId),
-      "4bf92f3577b34da6a3ce929d0e0e4736"
+      "4bf92f3577b34da6a3ce929d0e0e4736",
     );
     assertEquals(bufferToHexstring(context.parentId), "00f067aa0ba902b7");
     assertEquals(context.sampled, false);
@@ -63,7 +78,7 @@ describe("W3TraceContext", () => {
     const headers = new Headers();
     headers.set(
       "traceparent",
-      "01-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-00"
+      "01-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-00",
     );
 
     const context = W3TraceContext.fromHeaders(headers);
@@ -71,7 +86,7 @@ describe("W3TraceContext", () => {
     assertEquals(context.version, 1);
     assertEquals(
       bufferToHexstring(context.traceId),
-      "4bf92f3577b34da6a3ce929d0e0e4736"
+      "4bf92f3577b34da6a3ce929d0e0e4736",
     );
     assertEquals(bufferToHexstring(context.parentId), "00f067aa0ba902b7");
     assertEquals(context.sampled, false);
@@ -87,7 +102,7 @@ describe("W3TraceContext", () => {
     assertEquals(context.version, 0);
     assertEquals(
       bufferToHexstring(context.traceId),
-      "00000000000000000000000000000000"
+      "00000000000000000000000000000000",
     );
     assertEquals(bufferToHexstring(context.parentId), "0000000000000000");
     assertEquals(context.sampled, false);
@@ -98,7 +113,7 @@ describe("W3TraceContext", () => {
     const headers = new Headers();
     headers.set(
       "traceparent",
-      "00-00000000000000000000000000000000-0000000000000000-00"
+      "00-00000000000000000000000000000000-0000000000000000-00",
     );
 
     const context = W3TraceContext.fromHeaders(headers);
@@ -106,7 +121,7 @@ describe("W3TraceContext", () => {
     assertEquals(context.version, 0);
     assertEquals(
       bufferToHexstring(context.traceId),
-      "00000000000000000000000000000000"
+      "00000000000000000000000000000000",
     );
     assertEquals(bufferToHexstring(context.parentId), "0000000000000000");
     assertEquals(context.sampled, false);
@@ -117,7 +132,7 @@ describe("W3TraceContext", () => {
     const headers = new Headers();
     headers.set(
       "traceparent",
-      "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-00-01234-5678"
+      "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-00-01234-5678",
     );
 
     const context = W3TraceContext.fromHeaders(headers);
@@ -125,7 +140,7 @@ describe("W3TraceContext", () => {
     assertEquals(context.version, 0);
     assertEquals(
       bufferToHexstring(context.traceId),
-      "00000000000000000000000000000000"
+      "00000000000000000000000000000000",
     );
     assertEquals(bufferToHexstring(context.parentId), "0000000000000000");
     assertEquals(context.sampled, false);
@@ -136,7 +151,7 @@ describe("W3TraceContext", () => {
     const headers = new Headers();
     headers.set(
       "traceparent",
-      "01-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-00-01234-5678"
+      "01-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-00-01234-5678",
     );
 
     const context = W3TraceContext.fromHeaders(headers);
@@ -144,7 +159,7 @@ describe("W3TraceContext", () => {
     assertEquals(context.version, 1);
     assertEquals(
       bufferToHexstring(context.traceId),
-      "4bf92f3577b34da6a3ce929d0e0e4736"
+      "4bf92f3577b34da6a3ce929d0e0e4736",
     );
     assertEquals(bufferToHexstring(context.parentId), "00f067aa0ba902b7");
     assertEquals(context.sampled, false);
@@ -164,7 +179,7 @@ describe("W3TraceContext", () => {
     assertEquals(context.version, 0);
     assertEquals(
       bufferToHexstring(context.traceId),
-      "00000000000000000000000000000000"
+      "00000000000000000000000000000000",
     );
     assertEquals(bufferToHexstring(context.parentId), "0000000000000000");
     assertEquals(context.sampled, false);
@@ -217,7 +232,7 @@ describe("W3TraceContext", () => {
 
       assertFalse(
         newHeaders.has("tracestate"),
-        "tracestate header should be absent"
+        "tracestate header should be absent",
       );
     });
 
@@ -241,7 +256,7 @@ describe("W3TraceContext", () => {
           generator: new SimpleIdGenerator(),
           sampled: true,
         },
-        [{ key: "foo", value: "2" }] as w3TraceState.TraceState
+        [{ key: "foo", value: "2" }] as w3TraceState.TraceState,
       );
       assertEquals(context.getTraceStateValue("foo"), "2");
 
@@ -288,7 +303,7 @@ describe("W3TraceContext", () => {
           generator: new SimpleIdGenerator(),
           sampled: true,
         },
-        [{ key: "foo", value: "2" }] as w3TraceState.TraceState
+        [{ key: "foo", value: "2" }] as w3TraceState.TraceState,
       );
       assertEquals(context.version, 0);
       assertEquals(context.sampled, true);
@@ -354,7 +369,7 @@ describe("W3TraceContext", () => {
           sampled: true,
           extraFields: [],
         },
-        state
+        state,
       );
       assertEquals(context.version, 0);
       assert(context.sampled);

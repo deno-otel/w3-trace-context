@@ -33,17 +33,17 @@ export const parseTraceParent = (asString: string): TraceParentData => {
   const [, traceId, parentId, traceFlags, ...extraFields] = asString.split("-");
   if (traceId?.length !== 32) {
     throw new UnparseableError(
-      "Trace ID found in traceparent is the wrong length"
+      "Trace ID found in traceparent is the wrong length",
     );
   }
   if (parentId?.length !== 16) {
     throw new UnparseableError(
-      "Parent ID found in traceparent is the wrong length"
+      "Parent ID found in traceparent is the wrong length",
     );
   }
   if (traceFlags?.length !== 2) {
     throw new UnparseableError(
-      "TraceFlags found in traceparent is the wrong length"
+      "TraceFlags found in traceparent is the wrong length",
     );
   }
 

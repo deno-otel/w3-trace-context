@@ -82,6 +82,9 @@ export class W3TraceContext implements TraceContext {
     return context;
   }
 
+  /**
+   * Generates a W3TraceContext instance from Trace Parent data and, if provided, Trace State data
+   */
   static fromTraceData(
     traceParent: TraceParentData,
     traceState: TraceState = w3TraceState.getEmptyTraceState()
